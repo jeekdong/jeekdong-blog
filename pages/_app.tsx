@@ -1,10 +1,18 @@
-import React from 'react'
 import type { AppProps } from 'next/app'
 
-import '@/styles/globals.scss'
+import { Provider } from '@/utils/context'
+import WidthColorScheme from '@/utils/width-color-scheme-app'
+
+import '@/styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <Provider>
+      <WidthColorScheme>
+        <Component {...pageProps} />
+      </WidthColorScheme>
+    </Provider>
+  )
 }
 
 export default MyApp

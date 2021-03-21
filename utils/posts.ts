@@ -1,8 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
-import html from 'remark-html'
+import toc from 'markdown-toc'
+
+import { handleHeading } from './tools'
 
 // 这里不适用__dirname 因为next.js build 会在.next目录下执行，__dirname肯定是不对的
 // 详情见 https://github.com/vercel/next.js/discussions/14341
@@ -16,7 +17,8 @@ export interface PostData {
 }
 
 export interface PostDataWithHtml extends PostData {
-  contentHtml: string;
+  contents: string;
+  tocContents: string;
 }
 
 export function getSortedPostsData(): PostData[] {
@@ -74,15 +76,14 @@ export async function getPostDataById(id: string): Promise<PostDataWithHtml> {
 
   const matterResult = matter(fileContents)
 
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
+  const tocContents = toc(matterResult.content, {
+    slugify: handleHeading
+  }).content
 
   return {
     id,
-    contentHtml,
+    contents: matterResult.content,
+    tocContents,
     ...matterResult.data
   }
 }

@@ -1,9 +1,7 @@
 import React from 'react'
 
-import styles from './index.module.scss'
-
 const Layout: React.FC = ({ children }) => {
-  return <div className={styles.container}>{children}</div>
+  return <div className="py-4 m-auto mt-4 max-w-xs sm:max-w-xl md:max-w-2xl xl:max-w-3xl">{children}</div>
 }
 
 export default Layout

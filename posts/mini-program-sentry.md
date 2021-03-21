@@ -3,8 +3,6 @@ title: '小程序Sentry接入'
 date: '2020-01-01'
 ---
 
-# Sentry接入
-
 ## 背景
 
 小程序官方是有提供运行时错误报警查询，但是上传时未`开启 ES6 转 ES5`或`代码压缩` 是没有`sourcemap`的。错误上报没有上下文信息。有时甚至很难判断错误发生的页面，光看到错误报警，却很难解决问题
@@ -15,7 +13,7 @@ date: '2020-01-01'
 
 在小程序入口 `app.tsx` 配置
 
-```tsx
+```typescript
 import * as Sentry from "sentry-miniapp"
 
 const {
