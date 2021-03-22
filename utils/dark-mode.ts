@@ -7,7 +7,6 @@ export function getColorScheme() {
       result = COLOR_SCHEME_MAP.get('LIGHT')!
       localStorage.setItem(LAST_COLOR_SCHEME, COLOR_SCHEME_MAP.get('LIGHT')!)
     }
-    console.log('获取初始值', result)
     return result
   }
   return COLOR_SCHEME_MAP.get('LIGHT')!

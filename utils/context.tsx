@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react'
 import { createContainer } from 'unstated-next'
-import { COLOR_SCHEME_MAP, LAST_COLOR_SCHEME } from './constants'
+import { getColorScheme } from '@/utils/dark-mode'
+import { LAST_COLOR_SCHEME } from './constants'
 
 // TODO: 更好的 context 方式
 function useColorScheme() {
-  const [colorScheme, setColorScheme$] = useState(COLOR_SCHEME_MAP.get('LIGHT')!)
+  const [colorScheme, setColorScheme$] = useState(() => getColorScheme())
 
   const setColorScheme: React.Dispatch<React.SetStateAction<string>> = useCallback(
     dispatchParams => {
