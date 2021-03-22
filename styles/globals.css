@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html, body, #__next {
+    width: 100%;
+    @apply min-h-full;
+  }
+
+  .prose pre {
+    @apply -mx-8 rounded-none !important;
+  }
+
+  @media (min-width: 640px) {
+    .prose pre {
+      @apply mx-0 !important;
+    }
+  }
+  
+}

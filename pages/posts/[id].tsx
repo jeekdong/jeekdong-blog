@@ -5,10 +5,9 @@ import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 
 import HeadingRenderer from '@/components/heading-renderer'
-import Layout from '@/components/layout'
-import Date from '@/components/date'
+import PostDate from '@/components/post-date'
 import CodeBlock from '@/components/code-block'
-import ThemeSwitchBtn from '@/components/theme-switch-btn'
+import HeaderBlog from '@/components/header-blog'
 
 import { getAllPostIds, getPostDataById } from '@/utils/posts'
 import type { PostDataWithHtml } from '@/utils/posts'
@@ -21,7 +20,7 @@ interface Props {
 
 export default function Post({ postData }: Props) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>
           {postData.title}
@@ -29,34 +28,40 @@ export default function Post({ postData }: Props) {
           ——JeekDong&apos;s Blog 💻
         </title>
       </Head>
+      <HeaderBlog />
 
-      <div className="font-bold text-2xl mb-2">
-        {postData.title}
-      </div>
-      <div className="text-sm text-gray-600 mb-6 flex justify-between">
-        <Date dateString={postData.date || ''} />
-        <ThemeSwitchBtn />
-      </div>
-      <ReactMarkdown
-        className="prose max-w-none mb-8"
-        plugins={[gfm]}
-        renderers={{
-          code: CodeBlock
-        }}
-      >
-        {postData.tocContents}
-      </ReactMarkdown>
-      <ReactMarkdown
-        className="prose max-w-none"
-        plugins={[gfm]}
-        renderers={{
-          code: CodeBlock,
-          heading: HeadingRenderer
-        }}
-      >
-        {postData.contents}
-      </ReactMarkdown>
-    </Layout>
+      <header className="px-8 md:px-0 xl:px-0">
+        <div className="font-bold text-2xl mb-4">
+          {postData.title}
+        </div>
+        <div className="text-sm text-gray-600 mb-6 flex justify-between">
+          <PostDate dateString={postData.date || ''} />
+        </div>
+      </header>
+      <section className="px-8 md:px-0 xl:px-0">
+        <ReactMarkdown
+          className="prose dark:prose-light break-words max-w-none mb-8"
+          plugins={[gfm]}
+          renderers={{
+            code: CodeBlock
+          }}
+        >
+          {postData.tocContents}
+        </ReactMarkdown>
+      </section>
+      <section className="px-8 md:px-0 xl:px-0">
+        <ReactMarkdown
+          className="prose dark:prose-light break-words max-w-none"
+          plugins={[gfm]}
+          renderers={{
+            code: CodeBlock,
+            heading: HeadingRenderer
+          }}
+        >
+          {postData.contents}
+        </ReactMarkdown>
+      </section>
+    </>
   )
 }
 

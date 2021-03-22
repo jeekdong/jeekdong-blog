@@ -5,7 +5,8 @@ import Image from 'next/image'
 
 import { HOME_TITLE } from '@/utils/constants'
 import { getSortedPostsData } from '@/utils/posts'
-import Date from '@/components/date'
+import PostDate from '@/components/post-date'
+import ThemeSwitchBtn from '@/components/theme-switch-btn'
 
 import type { PostData } from '@/utils/posts'
 
@@ -15,14 +16,14 @@ interface Props {
 
 export default function Home({ allPostsData }: Props) {
   return (
-    <div className="max-w-screen-lg mx-auto pt-20 pb-10">
+    <div className="max-w-screen-lg mx-auto pb-10">
       <Head>
         <title>{HOME_TITLE}</title>
       </Head>
-      <div>
-        <section className="text-center text-3xl">
+      <>
+        <section className="text-center text-xl md:text-3xl">
           <div
-            className="rounded-full w-40 h-40 relative m-auto overflow-hidden shadow-2xl mb-10 border"
+            className="rounded-full w-32 h-32 md:w-40 md:h-40 relative m-auto overflow-hidden shadow-2xl mb-10 border"
           >
             <Image
               src="/avatar.png"
@@ -30,11 +31,13 @@ export default function Home({ allPostsData }: Props) {
               objectFit="cover"
             />
           </div>
-          this is jeekdong blog
+          {HOME_TITLE}
+          <div className="mt-4">
+            <ThemeSwitchBtn />
+          </div>
         </section>
         {/* Add this <section> tag below the existing <section> tag */}
-        <section className="max-w-xl mx-auto m-10">
-          <h2 className="text-2xl font-bold">Posts</h2>
+        <section className="max-w-xl mx-auto m-10 px-8">
           <ul className="text-base py-5">
             {allPostsData.map(({ id, date, title }) => (
               <li key={id} className="mb-5 last:mb-0">
@@ -42,12 +45,12 @@ export default function Home({ allPostsData }: Props) {
                   <span className="font-bold text-xl cursor-pointer">{title}</span>
                 </Link>
                 <br />
-                <Date dateString={date || ''} className="text-gray-600 text-sm" />
+                <PostDate dateString={date || ''} className="text-gray-600 text-sm" />
               </li>
             ))}
           </ul>
         </section>
-      </div>
+      </>
     </div>
   )
 }

@@ -2,9 +2,9 @@ import React from 'react'
 import { COLOR_SCHEME_MAP } from '@/utils/constants'
 import { ColorSchemeContainer } from '@/utils/context'
 
-type ExtractMap<T extends Map<any, any>> = T extends Map<any, infer R> ? R : T
+// type ExtractMap<T extends Map<any, any>> = T extends Map<any, infer R> ? R : T
 
-type State = ExtractMap<typeof COLOR_SCHEME_MAP>
+// type State = ExtractMap<typeof COLOR_SCHEME_MAP>
 
 const ThemeSwitchBtn = () => {
   const { colorScheme, setColorScheme } = ColorSchemeContainer.useContainer()
