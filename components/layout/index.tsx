@@ -11,6 +11,7 @@ const Layout: React.FC = ({ children }) => {
   
   return (
     <div className={`${colorScheme}`}>
+      {/* TODO: 背景颜色设置到body，防止滚动看到底色 */}
       {/* 这里多一个 tag 设置 dark，防止margin导致 bg 不生效 */}
       <div className="dark:bg-gray-800 dark:text-white min-h-screen">
         <div 
