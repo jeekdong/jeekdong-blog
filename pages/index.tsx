@@ -29,6 +29,7 @@ export default function Home({ allPostsData }: Props) {
               src="/avatar.png"
               layout="fill"
               objectFit="cover"
+              quality={60}
             />
           </div>
           {HOME_TITLE}

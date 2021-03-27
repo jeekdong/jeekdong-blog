@@ -1,4 +1,6 @@
 import React from 'react'
+import Image from 'next/image'
+
 import { COLOR_SCHEME_MAP } from '@/utils/constants'
 import { ColorSchemeContainer } from '@/utils/context'
 
@@ -36,8 +38,31 @@ const ThemeSwitchBtn = () => {
     >
       {
         colorScheme === COLOR_SCHEME_MAP.get('LIGHT')
-          ? <img className="w-4 h-4" src="/sun.svg" alt="moon" />
-          : <img className="w-4 h-4" src="/moon.svg" alt="sun" />
+          ? (
+            <div
+              className="w-4 h-4 inline-flex justify-center items-center"
+            >
+              <Image
+                width="20"
+                height="20"
+                className="w-4 h-4"
+                src="/sun.svg"
+                alt="moon"
+              />
+            </div>
+          )
+          : (
+            <span
+              className="w-4 h-4 inline-flex justify-center items-center"
+            >
+              <Image
+                width="20"
+                height="20"
+                src="/moon.svg"
+                alt="sun"
+              />
+            </span>
+          )
       }
     </div>
   )
