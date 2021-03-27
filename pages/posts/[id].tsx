@@ -8,6 +8,8 @@ import HeadingRenderer from '@/components/heading-renderer'
 import PostDate from '@/components/post-date'
 import CodeBlock from '@/components/code-block'
 import HeaderBlog from '@/components/header-blog'
+import FooterBlog from '@/components/footer-blog'
+import BackTop from '@/components/back-top'
 
 import { getAllPostIds, getPostDataById } from '@/utils/posts'
 import type { PostDataWithHtml } from '@/utils/posts'
@@ -61,6 +63,8 @@ export default function Post({ postData }: Props) {
           {postData.contents}
         </ReactMarkdown>
       </section>
+      <BackTop />
+      <FooterBlog />
     </>
   )
 }

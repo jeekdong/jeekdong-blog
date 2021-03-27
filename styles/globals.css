@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
   html, body, #__next {
     width: 100%;
     @apply min-h-full;
@@ -17,5 +20,10 @@
       @apply mx-0 !important;
     }
   }
-  
+}
+
+@layer components {
+  .button {
+    @apply focus:ring-0 focus:outline-none select-none;
+  }
 }

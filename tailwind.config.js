@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: process.env.NODE_ENV === 'production' ? true : false,
     content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
     options: {
       safelist: ['dark'], //specific classes
@@ -77,7 +77,9 @@ module.exports = {
   variants: {
     extend: {
       margin: ['last'],
-      typography: ['dark']
+      typography: ['dark'],
+      backgroundColor: ['active'],
+      opacity: ['active']
     },
   },
   plugins: [
