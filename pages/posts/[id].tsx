@@ -10,6 +10,7 @@ import CodeBlock from '@/components/code-block'
 import HeaderBlog from '@/components/header-blog'
 import FooterBlog from '@/components/footer-blog'
 import BackTop from '@/components/back-top'
+import PostToc from '@/components/post-toc'
 
 import { getAllPostIds, getPostDataById } from '@/utils/posts'
 import type { PostDataWithHtml } from '@/utils/posts'
@@ -41,15 +42,7 @@ export default function Post({ postData }: Props) {
         </div>
       </header>
       <section className="px-8 md:px-0 xl:px-0">
-        <ReactMarkdown
-          className="prose dark:prose-light break-words max-w-none mb-8"
-          plugins={[gfm]}
-          renderers={{
-            code: CodeBlock
-          }}
-        >
-          {postData.tocContents}
-        </ReactMarkdown>
+        <PostToc tocContents={postData.tocContents} />
       </section>
       <section className="px-8 md:px-0 xl:px-0">
         <ReactMarkdown
