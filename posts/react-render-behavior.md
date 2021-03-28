@@ -1,6 +1,6 @@
 ---
 title: '[深度] React渲染行为指南'
-date: '2020-03-19'
+date: '2021-03-19'
 ---
 
 ## What is "Rendering"?
