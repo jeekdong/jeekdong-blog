@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: 47-self
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@master
