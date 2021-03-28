@@ -1,0 +1,21 @@
+name: deploy to aliyun
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: npm install and build
+          run: |
+              npm install
+              npm run build
+          env:
+              CI: true
+      - name: deploy
+          run: pm2 restart my-blog
