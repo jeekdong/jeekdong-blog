@@ -7,6 +7,7 @@ import { HOME_TITLE } from '@/utils/constants'
 import { getSortedPostsData } from '@/utils/posts'
 import PostDate from '@/components/post-date'
 import ThemeSwitchBtn from '@/components/theme-switch-btn'
+import FooterBlog from '@/components/footer-blog'
 
 import type { PostData } from '@/utils/posts'
 
@@ -51,6 +52,7 @@ export default function Home({ allPostsData }: Props) {
             ))}
           </ul>
         </section>
+        <FooterBlog />
       </>
     </div>
   )
