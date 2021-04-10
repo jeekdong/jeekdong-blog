@@ -10,7 +10,8 @@ import CodeBlock from '@/components/code-block'
 import HeaderBlog from '@/components/header-blog'
 import FooterBlog from '@/components/footer-blog'
 import BackTop from '@/components/back-top'
-import PostToc from '@/components/post-toc'
+// import PostToc from '@/components/post-toc'
+import { FixedPostToc } from '@/components/post-toc'
 
 import { getAllPostIds, getPostDataById } from '@/utils/posts'
 import type { PostDataWithHtml } from '@/utils/posts'
@@ -33,29 +34,36 @@ export default function Post({ postData }: Props) {
       </Head>
       <HeaderBlog />
 
-      <header className="px-8 md:px-0 xl:px-0">
-        <div className="font-bold text-2xl mb-4">
-          {postData.title}
-        </div>
-        <div className="text-sm text-gray-600 mb-6 flex justify-between">
-          <PostDate dateString={postData.date || ''} />
-        </div>
-      </header>
-      <section className="px-8 md:px-0 xl:px-0">
-        <PostToc tocContents={postData.tocContents} />
-      </section>
-      <section className="px-8 md:px-0 xl:px-0">
-        <ReactMarkdown
-          className="prose dark:prose-light break-words max-w-none"
-          plugins={[gfm]}
-          renderers={{
-            code: CodeBlock,
-            heading: HeadingRenderer
-          }}
-        >
-          {postData.contents}
-        </ReactMarkdown>
-      </section>
+      <div className="px-8 md:px-0">
+        {/* 标题 */}
+        <header className="text-center mb-12">
+          <div className="font-bold text-3xl mb-4">
+            {postData.title}
+          </div>
+          <div className="text-sm text-gray-600">
+            <PostDate dateString={postData.date || ''} />
+          </div>
+        </header>
+        <section className="flex w-full">
+          {/* 目录 */}
+          <section className="mr-10 w-1/4">
+            <FixedPostToc tocContents={postData.tocContents} />
+          </section>
+          {/* 正文 */}
+          <section className="w-3/4 break-all">
+            <ReactMarkdown
+              className="prose dark:prose-light break-all max-w-none"
+              plugins={[gfm]}
+              renderers={{
+                code: CodeBlock,
+                heading: HeadingRenderer
+              }}
+            >
+              {postData.contents}
+            </ReactMarkdown>
+          </section>
+        </section>
+      </div>
       <BackTop />
       <FooterBlog />
     </>
