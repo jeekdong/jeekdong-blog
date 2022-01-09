@@ -11,7 +11,7 @@
     "date-fns": "^2.19.0",
     "gray-matter": "^4.0.2",
     "markdown-toc": "^1.2.0",
-    "next": "10.0.8",
+    "next": "^10.2.3",
     "nw-hooks": "^0.0.2",
     "postcss": "^8.2.7",
     "postcss-flexbugs-fixes": "^5.0.2",
