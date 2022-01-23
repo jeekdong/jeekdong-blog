@@ -45,8 +45,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Execute SSH commmands on remote server
-      env:
-        IMAGE_TAG: ${{ github.sha }}
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -56,5 +54,5 @@ jobs:
         script: |
           cd /
           docker login --username=${{ secrets.ACR_USERNAME }} --password=${{ secrets.ACR_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
-          docker pull registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:$IMAGE_TAG
-          docker run -p 80:3000 -d registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:$IMAGE_TAG
+          docker pull registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:${{ github.sha }}
+          docker run -p 80:3000 -d registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:${{ github.sha }}
