@@ -31,6 +31,7 @@ export default function Home({ allPostsData }: Props) {
               layout="fill"
               objectFit="cover"
               quality={60}
+              priority
             />
           </div>
           {HOME_TITLE}
