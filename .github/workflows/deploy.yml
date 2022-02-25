@@ -8,16 +8,52 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: self-hosted
-    steps:
+  # build:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@master
+  #     - name: npm install and build
+  #       run: |
+  #           npm install
+  #           npm run build
+  #       env:
+  #           CI: true
+  #     - name: deploy
+  #       run: pm2 restart my-blog
+  build-docker:
+    runs-on: ubuntu-latest
+    steps: 
       - name: Checkout
-        uses: actions/checkout@master
-      - name: npm install and build
-        run: |
-            npm install
-            npm run build
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Login to ACR
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: registry.cn-hangzhou.aliyuncs.com
+          username: "${{ secrets.ACR_USERNAME }}"
+          password: "${{ secrets.ACR_PASSWORD }}"
+      - name: Build and push image
         env:
-            CI: true
-      - name: deploy
-        run: pm2 restart my-blog
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:$IMAGE_TAG .
+          docker push registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:$IMAGE_TAG
+  ecs-pull:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Execute SSH commmands on remote server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USERNAME }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: ${{ secrets.HOST_PORT }}
+        script: |
+          cd /
+          docker login --username=${{ secrets.ACR_USERNAME }} --password=${{ secrets.ACR_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+          docker pull registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:${{ github.sha }}
+          docker stop nextjs-blog || true && docker rm nextjs-blog || true
+          docker run -p 3000:3000 -d --name nextjs-blog registry.cn-hangzhou.aliyuncs.com/jeekdong/nextjs-blog:${{ github.sha }}
