@@ -46,11 +46,17 @@ export default function Post({ postData }: Props) {
         </header>
         <section className="flex w-full">
           {/* 目录 */}
-          <section className="mr-10 w-1/4">
-            <FixedPostToc tocContents={postData.tocContents} />
-          </section>
+          {
+            postData.tocJson && postData.tocJson.length > 0 && (
+              <FixedPostToc 
+                tocContents={postData.tocContents}
+                tocJson={postData.tocJson}
+                className="-ml-32 w-72"
+              />
+            )
+          }
           {/* 正文 */}
-          <section className="w-3/4 break-all">
+          <section className="break-all max-w-3xl m-auto">
             <ReactMarkdown
               className="prose dark:prose-light break-all max-w-none"
               plugins={[gfm]}

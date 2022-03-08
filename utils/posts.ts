@@ -19,6 +19,7 @@ export interface PostData {
 export interface PostDataWithHtml extends PostData {
   contents: string;
   tocContents: string;
+  tocJson: AnyObject[];
 }
 
 export function getSortedPostsData(): PostData[] {
@@ -69,7 +70,7 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostDataById(id: string): Promise<PostDataWithHtml> {
+export function getPostDataById(id: string): PostDataWithHtml {
   const fullPath = path.join(postsDirectory, `${id}.md`)
 
   const fileContents = fs.readFileSync(fullPath, 'utf-8')
@@ -80,10 +81,15 @@ export async function getPostDataById(id: string): Promise<PostDataWithHtml> {
     slugify: handleHeading
   }).content
 
+  const tocJson = toc(matterResult.content, {
+    slugify: handleHeading
+  }).json
+
   return {
     id,
     contents: matterResult.content,
     tocContents,
+    tocJson,
     ...matterResult.data
   }
 }
