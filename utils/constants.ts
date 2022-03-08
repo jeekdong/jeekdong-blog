@@ -1,4 +1,6 @@
-export const HOME_TITLE = "jeekdong's Blog"
+// export const HOME_TITLE = "jeekdong's Blog"
+export const HOME_TITLE = '学习记录'
+
 export const AUTHOR = 'Jeekdong'
 
 export const LAST_COLOR_SCHEME = 'last_color_scheme'
