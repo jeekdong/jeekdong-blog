@@ -1,5 +1,4 @@
-// export const HOME_TITLE = "jeekdong's Blog"
-export const HOME_TITLE = '学习记录'
+export const HOME_TITLE = "jeekdong's Blog"
 
 export const AUTHOR = 'Jeekdong'
 
